@@ -1,0 +1,110 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API to calculate monthly revenue and display office reservations.",
+        "title": "Office Reservation API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/calculate": {
+            "post": {
+                "description": "Accepts JSON with month (YYYY-MM) and returns total revenue and unreserved capacity for that month based on CSV reservation data.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OfficeReservation API"
+                ],
+                "summary": "Calculate revenue and capacity for a month",
+                "parameters": [
+                    {
+                        "description": "Request body should have a 'month' field in YYYY-MM format. Example: { \\",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/manual": {
+            "get": {
+                "description": "Displays the CSV data of reservations in an HTML table.",
+                "produces": [
+                    "text/html"
+                ],
+                "tags": [
+                    "OfficeReservation API"
+                ],
+                "summary": "Show reservations table",
+                "responses": {
+                    "200": {
+                        "description": "HTML page with CSV data",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Request": {
+            "type": "object",
+            "properties": {
+                "month": {
+                    "type": "string",
+                    "example": "2014-05"
+                }
+            }
+        },
+        "models.Response": {
+            "type": "object",
+            "properties": {
+                "month": {
+                    "type": "string"
+                },
+                "revenue": {
+                    "type": "number"
+                },
+                "unreserved_capacity": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

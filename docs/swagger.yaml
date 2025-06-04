@@ -1,0 +1,73 @@
+definitions:
+  models.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  models.Request:
+    properties:
+      month:
+        example: 2014-05
+        type: string
+    type: object
+  models.Response:
+    properties:
+      month:
+        type: string
+      revenue:
+        type: number
+      unreserved_capacity:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: API to calculate monthly revenue and display office reservations.
+  title: Office Reservation API
+  version: "1.0"
+paths:
+  /calculate:
+    post:
+      consumes:
+      - application/json
+      description: Accepts JSON with month (YYYY-MM) and returns total revenue and
+        unreserved capacity for that month based on CSV reservation data.
+      parameters:
+      - description: 'Request body should have a ''month'' field in YYYY-MM format.
+          Example: { \'
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Calculate revenue and capacity for a month
+      tags:
+      - OfficeReservation API
+  /manual:
+    get:
+      description: Displays the CSV data of reservations in an HTML table.
+      produces:
+      - text/html
+      responses:
+        "200":
+          description: HTML page with CSV data
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Show reservations table
+      tags:
+      - OfficeReservation API
+swagger: "2.0"
