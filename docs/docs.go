@@ -43,7 +43,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "type": "string"
                         }
                     },
                     "400": {
@@ -65,6 +65,16 @@ const docTemplate = `{
                     "OfficeReservation API"
                 ],
                 "summary": "Show reservations table",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "HTML page with CSV data",
@@ -97,20 +107,6 @@ const docTemplate = `{
                 "month": {
                     "type": "string",
                     "example": "2014-05"
-                }
-            }
-        },
-        "models.Response": {
-            "type": "object",
-            "properties": {
-                "month": {
-                    "type": "string"
-                },
-                "revenue": {
-                    "type": "number"
-                },
-                "unreserved_capacity": {
-                    "type": "integer"
                 }
             }
         }

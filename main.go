@@ -2,6 +2,7 @@ package main
 
 import (
 	"cleancode/controller"
+	"cleancode/middleware"
 
 	_ "cleancode/docs"
 
@@ -16,8 +17,8 @@ import (
 // @BaseUrl  	/
 func main() {
 	router := gin.Default()
-	router.GET("/swagger-ui/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.POST("/calculate", controller.CalculateHandler)
-	router.GET("/manual", controller.ManualHandler)
+	router.GET("/manual", middleware.ValidateAuth(), controller.ManualHandler)
 	router.Run(":8080")
 }

@@ -27,7 +27,7 @@ func ParseReservation(row []string) (models.Reservation, error) {
 		}
 		endDate = &parsed
 	}
-	return models.Reservation{capacity, rate, startDate, endDate}, nil
+	return models.Reservation{Capacity: capacity, MonthlyRate: rate, StartDate: startDate, EndDate: endDate}, nil
 }
 
 // Check if reservation overlaps with the target month

@@ -10,15 +10,6 @@ definitions:
         example: 2014-05
         type: string
     type: object
-  models.Response:
-    properties:
-      month:
-        type: string
-      revenue:
-        type: number
-      unreserved_capacity:
-        type: integer
-    type: object
 info:
   contact: {}
   description: API to calculate monthly revenue and display office reservations.
@@ -45,7 +36,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Response'
+            type: string
         "400":
           description: Bad Request
           schema:
@@ -56,6 +47,13 @@ paths:
   /manual:
     get:
       description: Displays the CSV data of reservations in an HTML table.
+      parameters:
+      - default: Bearer
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - text/html
       responses:

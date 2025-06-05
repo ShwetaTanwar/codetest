@@ -14,8 +14,9 @@ type Reservation struct {
 type Request struct {
 	Month string `json:"month" example:"2014-05"`
 }
-type Response struct {
-	Month              string  `json:"month"`
-	Revenue            float64 `json:"revenue"`
-	UnreservedCapacity int     `json:"unreserved_capacity"`
-}
+
+	// type Response struct {
+	// 	Month              string  `json:"month"`
+	// 	Revenue            float64 `json:"revenue"`
+	// 	UnreservedCapacity int     `json:"unreserved_capacity"`
+	// }
